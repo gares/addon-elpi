@@ -1,24 +1,13 @@
 REPO = https://github.com/LPCIC/coq-elpi.git
-TAG = v1.14.0
-COMMIT = 6dd7511f5f636b748867ae1cdcfcf37511badcbf
+TAG = v1.14.3
 WORKDIR = workdir
-
-# Git boilerplate
-define GIT_CLONE_COMMIT
-mkdir -p $(WORKDIR) && cd $(WORKDIR) && git init && \
-git remote add origin $(REPO) && \
-git fetch --depth=1 origin $(COMMIT) && git reset --hard FETCH_HEAD
-endef
-
-GIT_CLONE = ${if $(COMMIT), $(GIT_CLONE_COMMIT), git clone --recursive --depth=1 -b $(TAG) $(REPO) $(WORKDIR)}
 
 .PHONY: all get prepare
 
 all: $(WORKDIR) prepare $(WORKDIR)/src/coq_elpi_config.ml
 	cp -r dune-files/* $(WORKDIR)/
-	dune build $(WORKDIR)/src/META.coq-elpi @all -j1
 	# must build plugin first
-	#dune build $(WORKDIR)/src && dune build
+	dune build $(WORKDIR)/src && dune build
 
 prepare: $(WORKDIR)
 	@echo '- Installing dependencies -'
