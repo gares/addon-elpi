@@ -3,8 +3,7 @@
  (name elpi)
  (package coq-elpi)
  (synopsis "Elpi Plugin")
- (libraries coq-elpi.elpi)
- (flags -Q elpi/workdir/elpi elpi) ; oops, this is a workspace-relative path
+ (libraries elpi_plugin_lib)  ; hack to set up ML path for plugin
  (modules :standard \ derive.eqOK_trivial derive.tests.test_derive_vector))
 
 (dirs derive ltac)
