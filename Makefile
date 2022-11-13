@@ -1,6 +1,7 @@
 REPO = https://github.com/LPCIC/coq-elpi.git
 TAG = v1.14.3
 WORKDIR = workdir
+GIT_CLONE = git clone --recursive --depth=1 -b $(TAG) $(REPO) $(WORKDIR)
 
 .PHONY: all get prepare
 
