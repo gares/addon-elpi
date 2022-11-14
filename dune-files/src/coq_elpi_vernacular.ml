@@ -226,6 +226,10 @@ let file_resolver =
         let user_contrib =
           if Sys.backend_type = Sys.Other "js_of_ocaml" then "../.."
           else
+            let () =
+              match Sys.backend_type with
+              | Sys.Other x -> Printf.eprintf "%s\n%!" x
+              | _ -> () in
             let env = Boot.Env.init () in
             Boot.Env.(user_contrib env |> Path.to_string) in    user_contrib :: Envars.coqpath
         |> List.map (fun p -> p ^ "/elpi/")
